@@ -1,0 +1,12 @@
+<main class="grid">
+  {{#each data}}
+    <article>
+      <img src="{{avatar}}" alt="{{name}} Profile Picture">
+      <div class="text">
+        <h3>{{name}}</h3>
+        <p class="hidden-text">Created At: {{createdAt}}</p>
+        <p class="hidden-text">Id: {{id}}</p>
+      </div>
+    </article>
+    {{/each}}
+</main>
