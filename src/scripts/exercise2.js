@@ -4,8 +4,27 @@ let getDomElementById = (id) => {
   return document.getElementById(id);
 }
 
+let setLocalStorageItem = (collectionKey, listItemName) => {
+  if (!localStorage.getItem(collectionKey)) {
+    let addCurrentElement = { [listItemName] : listItemName};
+    localStorage.setItem(collectionKey, JSON.stringify(addCurrentElement));
+  } else {
+    let existingCollection = JSON.parse(localStorage.getItem(collectionKey));
+    existingCollection[listItemName] = listItemName;
+    localStorage.setItem(collectionKey, JSON.stringify(existingCollection));
+  }
+}
+
+let deleteLocalStorageItem = (collectionKey, listItemName) => {
+  if (localStorage.getItem(collectionKey)) {
+    let existingStorageCollection = JSON.parse(localStorage.getItem(collectionKey));
+    delete existingStorageCollection[listItemName];
+    localStorage.setItem(collectionKey, JSON.stringify(existingStorageCollection));
+  }
+}
+
 let showTodo = () => {
-  let todoItems = JSON.parse(localStorage.getItem('todo'));
+  let todoItems = JSON.parse(localStorage.getItem("incomplete-tasks"));
   for (const [key, value] of Object.entries(todoItems)) {
     let newListItem = createNewTaskElement(value);
     getDomElementById("incomplete-tasks").appendChild(newListItem);
@@ -62,14 +81,8 @@ let addTask = function(event) {
     let newListItem = createNewTaskElement(listItemName);
     getDomElementById("incomplete-tasks").appendChild(newListItem);
     bindTaskEvents(newListItem, taskCompleted);
-    if (!localStorage.getItem("todo")) {
-      let addCurrentElement = { [listItemName] : listItemName};
-      localStorage.setItem("todo", JSON.stringify(addCurrentElement));
-    } else {
-      let existingCollection = JSON.parse(localStorage.getItem("todo"));
-      existingCollection[listItemName] = listItemName;
-      localStorage.setItem("todo", JSON.stringify(existingCollection));
-    }
+    let localStorageCollectionKey = newListItem.parentNode.id;
+    setLocalStorageItem(localStorageCollectionKey, listItemName);
     taskInput.value = "";
   }
 };
@@ -95,6 +108,9 @@ let editTask = function() {
 let deleteTask = function(el) {
   let listItem = this.parentNode;
   let ul = listItem.parentNode;
+  const localStorageCollectionKey = ul.id;
+  const listItemName = listItem.innerText.split('\n')[0];
+  deleteLocalStorageItem(localStorageCollectionKey, listItemName);
   ul.removeChild(listItem);
 };
 
