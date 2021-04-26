@@ -36,8 +36,10 @@ let createNewTaskElement = function(taskString) {
 
   checkBox.type = "checkbox";
   checkBox.setAttribute("aria-label", "todo-item-checkbox");
+  checkBox.setAttribute("tabindex", "0");
   editInput.type = "text";
   editInput.setAttribute("aria-label", "todo-item-input");
+  editInput.setAttribute("tabindex", "0");
   editButton.innerText = "Edit";
   editButton.className = "edit";
   deleteButton.innerText = "Delete";
