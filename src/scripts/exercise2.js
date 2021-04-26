@@ -1,17 +1,16 @@
 import '../styles/exercise2.scss';
 
-let taskInput = document.getElementById("new-task");
-let addButton = document.getElementsByTagName("button")[0];
-let incompleteTasksHolder = document.getElementById("incomplete-tasks");
-let completedTasksHolder = document.getElementById("completed-tasks");
+let getDomElementById = (id) => {
+  return document.getElementById(id);
+}
 
 let createNewTaskElement = function(taskString, arr) {
-  listItem = document.createElement("li");
-  checkBox = document.createElement("input");
-  label = document.createElement("label");
-  editInput = document.createElement("input");
-  editButton = document.createElement("button");
-  deleteButton = document.createElement("button");
+  let listItem = document.createElement("li");
+  let checkBox = document.createElement("input");
+  let label = document.createElement("label");
+  let editInput = document.createElement("input");
+  let editButton = document.createElement("button");
+  let deleteButton = document.createElement("button");
 
   checkBox.type = "checkbox";
   editInput.type = "text";
@@ -31,11 +30,14 @@ let createNewTaskElement = function(taskString, arr) {
 };
 
 let addTask = function() {
-  let listItemName = taskInput.value || "New Item"
-  listItem = createNewTaskElement(listItemName)
-  incompleteTasksHolder.appendChild(listItem)
-  bindTaskEvents(listItem, taskCompleted)
-  taskInput.value = "";
+  let taskInput = document.getElementById("new-task");
+  let listItemName = taskInput.value;
+  if (listItemName) {
+    let newListItem = createNewTaskElement(listItemName)
+    getDomElementById("incomplete-tasks").appendChild(newListItem)
+    bindTaskEvents(newListItem, taskCompleted)
+    taskInput.value = "";
+  }
 };
 
 let editTask = function() {
@@ -64,13 +66,13 @@ let deleteTask = function(el) {
 
 let taskCompleted = function(el) {
   let listItem = this.parentNode;
-  completedTasksHolder.appendChild(listItem);
+  getDomElementById("completed-tasks").appendChild(listItem);
   bindTaskEvents(listItem, taskIncomplete);
 };
 
 let taskIncomplete = function() {
   let listItem = this.parentNode;
-  incompleteTasksHolder.appendChild(listItem);
+  getDomElementById("incomplete-tasks").appendChild(listItem);
   bindTaskEvents(listItem, taskCompleted);
 };
 
@@ -83,12 +85,13 @@ let bindTaskEvents = function(taskListItem, checkBoxEventHandler, cb) {
   checkBox.onchange = checkBoxEventHandler;
 };
 
-addButton.addEventListener("click", addTask);
+getDomElementById("add-btn").addEventListener("click", addTask);
 
-for (let i = 0; i < incompleteTasksHolder.children.length; i++) {
-  bindTaskEvents(incompleteTasksHolder.children[i], taskCompleted);
+
+for (let i = 0; i < getDomElementById("incomplete-tasks").children.length; i++) {
+  bindTaskEvents(getDomElementById("incomplete-tasks").children[i], taskCompleted);
 }
 
-for (let i = 0; i < completedTasksHolder.children.length; i++) {
-  bindTaskEvents(completedTasksHolder.children[i], taskIncomplete);
+for (let i = 0; i < getDomElementById("completed-tasks").children.length; i++) {
+  bindTaskEvents(getDomElementById("completed-tasks").children[i], taskIncomplete);
 }
