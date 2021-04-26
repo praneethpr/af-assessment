@@ -4,7 +4,29 @@ let getDomElementById = (id) => {
   return document.getElementById(id);
 }
 
-let createNewTaskElement = function(taskString, arr) {
+let showTodo = () => {
+  let todoItems = JSON.parse(localStorage.getItem('todo'));
+  for (const [key, value] of Object.entries(todoItems)) {
+    let newListItem = createNewTaskElement(value);
+    getDomElementById("incomplete-tasks").appendChild(newListItem);
+    bindTaskEvents(newListItem, taskCompleted);
+  }
+}
+
+let showCompleted = () => {
+  // To do
+}
+
+let showAll = () => {
+  showTodo();
+  showCompleted();
+}
+
+window.onload = (event) => {
+  showAll();
+} 
+
+let createNewTaskElement = function(taskString) {
   let listItem = document.createElement("li");
   let checkBox = document.createElement("input");
   let label = document.createElement("label");
@@ -13,13 +35,14 @@ let createNewTaskElement = function(taskString, arr) {
   let deleteButton = document.createElement("button");
 
   checkBox.type = "checkbox";
+  checkBox.setAttribute("aria-label", "todo-item-checkbox");
   editInput.type = "text";
+  editInput.setAttribute("aria-label", "todo-item-input");
   editButton.innerText = "Edit";
   editButton.className = "edit";
   deleteButton.innerText = "Delete";
   deleteButton.className = "delete";
   label.innerText = taskString;
-
   listItem.appendChild(checkBox);
   listItem.appendChild(label);
   listItem.appendChild(editInput);
@@ -34,9 +57,17 @@ let addTask = function(event) {
   let taskInput = document.getElementById("new-task");
   let listItemName = taskInput.value;
   if (listItemName) {
-    let newListItem = createNewTaskElement(listItemName)
-    getDomElementById("incomplete-tasks").appendChild(newListItem)
-    bindTaskEvents(newListItem, taskCompleted)
+    let newListItem = createNewTaskElement(listItemName);
+    getDomElementById("incomplete-tasks").appendChild(newListItem);
+    bindTaskEvents(newListItem, taskCompleted);
+    if (!localStorage.getItem("todo")) {
+      let addCurrentElement = { [listItemName] : listItemName};
+      localStorage.setItem("todo", JSON.stringify(addCurrentElement));
+    } else {
+      let existingCollection = JSON.parse(localStorage.getItem("todo"));
+      existingCollection[listItemName] = listItemName;
+      localStorage.setItem("todo", JSON.stringify(existingCollection));
+    }
     taskInput.value = "";
   }
 };
@@ -77,7 +108,7 @@ let taskIncomplete = function() {
   bindTaskEvents(listItem, taskCompleted);
 };
 
-let bindTaskEvents = function(taskListItem, checkBoxEventHandler, cb) {
+let bindTaskEvents = function(taskListItem, checkBoxEventHandler) {
   let checkBox = taskListItem.querySelectorAll("input[type=checkbox]")[0];
   let editButton = taskListItem.querySelectorAll("button.edit")[0];
   let deleteButton = taskListItem.querySelectorAll("button.delete")[0];

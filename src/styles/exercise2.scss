@@ -13,27 +13,30 @@ html {
 			width: 600px;
 			margin: 100px auto 0;
 		}
-		ul {
-			margin: 0px;
-			padding: 0;
-			li {
-				input[type=text] {
-					display: none;
+		div {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			ul {
+				margin: 0px;
+				padding: 0;
+				li {
+					display: flex;
+					input[type=text] {
+						display: none;
+					}
 				}
-			}
-			li.editMode {
-				input[type=text] {
-					display: block;
-				}
-				label {
-					display: none;
+				li.editMode {
+					input[type=text] {
+						display: block;
+					}
+					label {
+						display: none;
+					}
 				}
 			}
 		}
 		li {
-			* {
-				float: left;
-			}
 			clear: both;
 			list-style: none;
 			overflow: hidden;
@@ -115,7 +118,6 @@ html {
 			}
 		}
 		input#new-task {
-			float: left;
 			width: 318px;
 		}
 		form {
