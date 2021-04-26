@@ -3,6 +3,11 @@ html {
 		background: #ffffff;
 		color: #333;
 		font-family: Lato, sans-serif;
+		h1 {
+			display: block;
+			width: 600px;
+			margin: 20px auto;
+		}
 		.container {
 			display: block;
 			width: 600px;
@@ -70,14 +75,15 @@ html {
 		}
 		button {
 			outline: none;
-			background: none;
+			background: #000;
 			border: 0px;
-			color: #888888;
+			color: #fff;
 			font-size: 15px;
 			width: 60px;
-			margin: 10px 0 0;
+			margin-left: 10px;
 			font-family: Lato, sans-serif;
 			cursor: pointer;
+			padding: 10px;
 			&:hover {
 				color: #333;
 			}
@@ -112,7 +118,7 @@ html {
 			float: left;
 			width: 318px;
 		}
-		p {
+		form {
 			>button {
 				&:hover {
 					color: #0FC57C;

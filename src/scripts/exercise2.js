@@ -29,7 +29,8 @@ let createNewTaskElement = function(taskString, arr) {
   return listItem;
 };
 
-let addTask = function() {
+let addTask = function(event) {
+  event.preventDefault();
   let taskInput = document.getElementById("new-task");
   let listItemName = taskInput.value;
   if (listItemName) {

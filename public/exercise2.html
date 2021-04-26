@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-  <html>
+  <html lang="en-US">
 
   <head>
     <meta charset="UTF-8">
@@ -9,29 +9,34 @@
   </head>
 
   <body>
+    <header>
+      <h1>Task Tracker</h1>
+    </header>
+    <main>
       <div class="container">
-          <p>
+          <form>
               <label id="new-task-label" for="new-task">
                   <b>Add Item</b>
               </label>
-              <input id="new-task" type="text">
-              <button id="add-btn">Add</button>
-          </p>
+              <input id="new-task" type="text" aria-labelledby="new-task-label">
+              <button id="add-btn" type="submit">Add</button>
+          </form>
 
           <h3>
             <b>Todo</b>
           </h3>
           <ul id="incomplete-tasks">
-              <li>
-                  <input type="checkbox">
-                  <label>Pay Bills</label>
-                  <input type="text">
+              <li aria-labelledby="incomplete-tasks">
+                  <input type="checkbox" aria-label="todo-item-checkbox">
+                  <label for="todo-item">Pay Bills</label>
+                  <input type="text" name="todo-item" aria-label="todo-item-input">
                   <button class="edit">Edit</button>
                   <button class="delete">Delete</button>
-              <li class="editMode">
-                  <input type="checkbox">
+              </li>
+              <li class="editMode" aria-labelledby="incomplete-tasks">
+                  <input type="checkbox" aria-label="todo-item-checkbox">
                   <label>Go Shopping</label>
-                  <input type="text" value="Go Shopping">
+                  <input type="text" value="Go Shopping" aria-label="todo-item-input">
                   <button class="edit">Save</button>
                   <button class="delete">Delete</button>
               </li>
@@ -41,16 +46,16 @@
             <b>Completed</b>
           </h3>
           <ul id="completed-tasks">
-              <li>
-                  <input type="checkbox" checked>
+              <li aria-labelledby="completed-tasks">
+                  <input type="checkbox" checked aria-checked="true" aria-label="completed-item-checkbox">
                   <label>See the Doctor</label>
-                  <input type="text">
+                  <input type="text" aria-label="completed-item-input">
                   <button class="edit">Edit</button>
                   <button class="delete">Delete</button>
               </li>
           </ul>
       </div>
-
+    </main>
       <script src="./assets/scripts/exercise2.js"></script>
    </body>
 </html>
