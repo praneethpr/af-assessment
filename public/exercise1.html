@@ -20,18 +20,19 @@
   <script type="text/javascript">
     function myFunc(id, createdAt) {
       let articleElement = document.getElementById(id);
-      if (articleElement.lastElementChild.querySelector("button").innerText === "Show") {
-        articleElement.lastElementChild.querySelector("button").innerText = "Hide";
+      if (articleElement.querySelector("button").innerText === "Show") {
+        articleElement.querySelector("button").innerText = "Hide";
         let idElement = document.createElement("p");
         let createdAtElement = document.createElement("p");
         idElement.innerText = `Id: ${id}`;
         createdAtElement.innerText = `CreatedAt: ${createdAt}`;
-        articleElement.lastElementChild.appendChild(idElement);
-        articleElement.lastElementChild.appendChild(createdAtElement);
+        articleElement.querySelector("div").appendChild(idElement);
+        articleElement.querySelector("div").appendChild(createdAtElement);
       } else {
-        articleElement.lastElementChild.querySelector("button").innerText = "Show";
-        articleElement.lastElementChild.removeChild(articleElement.lastElementChild.lastElementChild);
-        articleElement.lastElementChild.removeChild(articleElement.lastElementChild.lastElementChild);
+        articleElement.querySelector("button").innerText = "Show";
+        while (articleElement.querySelector("div p")) {
+          articleElement.querySelector("div").removeChild(articleElement.querySelector("div p"));
+        }
       }
     }
   </script>
