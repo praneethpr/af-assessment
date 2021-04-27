@@ -33,7 +33,13 @@ let showTodo = () => {
 }
 
 let showCompleted = () => {
-  // To do
+  let completedItems = JSON.parse(localStorage.getItem("completed-tasks"));
+  for (const [key, value] of Object.entries(completedItems)) {
+    let newListItem = createNewTaskElement(value);
+    newListItem.querySelectorAll("input[type=checkbox]")[0].checked = true;
+    getDomElementById("completed-tasks").appendChild(newListItem);
+    bindTaskEvents(newListItem, taskIncomplete);
+  }
 }
 
 let showAll = () => {
@@ -117,12 +123,18 @@ let deleteTask = function(el) {
 let taskCompleted = function(el) {
   let listItem = this.parentNode;
   getDomElementById("completed-tasks").appendChild(listItem);
+  const listItemName = listItem.innerText.split('\n')[0];
+  setLocalStorageItem("completed-tasks", listItemName);
+  deleteLocalStorageItem("incomplete-tasks", listItemName);
   bindTaskEvents(listItem, taskIncomplete);
 };
 
 let taskIncomplete = function() {
   let listItem = this.parentNode;
   getDomElementById("incomplete-tasks").appendChild(listItem);
+  const listItemName = listItem.innerText.split('\n')[0];
+  setLocalStorageItem("incomplete-tasks", listItemName);
+  deleteLocalStorageItem("completed-tasks", listItemName);
   bindTaskEvents(listItem, taskCompleted);
 };
 
