@@ -17,6 +17,24 @@
     <div id="people-container"></div>
   </div>
   <script src="./assets/scripts/exercise1.js"></script>
+  <script type="text/javascript">
+    function myFunc(id, createdAt) {
+      let articleElement = document.getElementById(id);
+      if (articleElement.lastElementChild.querySelector("button").innerText === "Show") {
+        articleElement.lastElementChild.querySelector("button").innerText = "Hide";
+        let idElement = document.createElement("p");
+        let createdAtElement = document.createElement("p");
+        idElement.innerText = `Id: ${id}`;
+        createdAtElement.innerText = `CreatedAt: ${createdAt}`;
+        articleElement.lastElementChild.appendChild(idElement);
+        articleElement.lastElementChild.appendChild(createdAtElement);
+      } else {
+        articleElement.lastElementChild.querySelector("button").innerText = "Show";
+        articleElement.lastElementChild.removeChild(articleElement.lastElementChild.lastElementChild);
+        articleElement.lastElementChild.removeChild(articleElement.lastElementChild.lastElementChild);
+      }
+    }
+  </script>
 </body>
 
 </html>

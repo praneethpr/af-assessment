@@ -1,11 +1,10 @@
 <main class="grid">
   {{#each data}}
-    <article>
+    <article id={{id}}>
       <img src="{{avatar}}" alt="{{name}} Profile Picture">
       <div class="text">
         <h3>{{name}}</h3>
-        <p>Created At: {{createdAt}}</p>
-        <p>Id: {{id}}</p>
+        <button onclick="myFunc('{{id}}', '{{createdAt}}')">Show</button>
       </div>
     </article>
     {{/each}}
